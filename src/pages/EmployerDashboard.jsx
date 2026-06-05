@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { dashboardNavLinks } from "../routes/appRouteConfig";
 import DashboardLayout from "../layouts/DashboardLayout";
@@ -11,6 +11,7 @@ import {
   SectionHeader,
   StatCard,
 } from "../components/dashboard";
+import { useAnimationReady } from "../hooks/useAnimationReady";
 import Icon from "../components/UI/Icon";
 import GlassCard from "../components/dashboard/GlassCard";
 import { useGsapReveal } from "../hooks/useGsapReveal";
@@ -168,18 +169,31 @@ const EmployerDashboard = () => {
   const [postOpen, setPostOpen] = useState(false);
   const [shortlisted, setShortlisted] = useState([]);
   const [form, setForm] = useState(initialForm);
+  const { isReady, prefersReducedMotion } = useAnimationReady();
 
   useGsapReveal(rootRef);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!rootRef.current) return;
+    const heroItems = rootRef.current.querySelectorAll("[data-hero]");
+
+    if (prefersReducedMotion) {
+      gsap.set(heroItems, { autoAlpha: 1, y: 0, clearProps: "transform" });
+      return undefined;
+    }
+
+    if (!isReady) {
+      gsap.set(heroItems, { y: 18, autoAlpha: 0 });
+      return undefined;
+    }
+
     const tween = gsap.fromTo(
-      rootRef.current.querySelectorAll("[data-hero]"),
-      { y: 18, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: "power3.out" },
+      heroItems,
+      { y: 18, autoAlpha: 0 },
+      { y: 0, autoAlpha: 1, duration: 0.7, stagger: 0.08, ease: "power3.out" },
     );
     return () => tween.kill();
-  }, []);
+  }, [isReady, prefersReducedMotion]);
 
   const summary = useMemo(() => {
     const totalApplications = jobs.reduce((sum, job) => sum + job.applications, 0);

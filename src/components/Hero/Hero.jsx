@@ -1,5 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
+import { useAnimationReady } from "../../hooks/useAnimationReady";
 import Badge from "../UI/Badge";
 import Button from "../UI/Button";
 import Container from "../UI/Container";
@@ -16,14 +17,41 @@ const trustItems = ["SAP basics", "Oracle paths", "Odoo practice", "Dynamics car
 const Hero = () => {
   const sectionRef = useRef(null);
   const spotlightRef = useRef(null);
+  const { isReady, prefersReducedMotion } = useAnimationReady();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!sectionRef.current) return undefined;
+
+    const heroItems = sectionRef.current.querySelectorAll("[data-hero-item]");
+    const preview = sectionRef.current.querySelector("[data-preview]");
+    const floats = sectionRef.current.querySelectorAll("[data-float]");
+
+    if (prefersReducedMotion) {
+      gsap.set([...heroItems, preview, ...floats], { autoAlpha: 1, y: 0, scale: 1, clearProps: "transform,filter" });
+      return undefined;
+    }
+
+    if (!isReady) {
+      gsap.set(heroItems, { autoAlpha: 0, y: 34, filter: "blur(8px)" });
+      gsap.set(preview, { autoAlpha: 0, y: 42, scale: 0.965, filter: "blur(8px)" });
+      gsap.set(floats, { autoAlpha: 0, y: 12 });
+      return undefined;
+    }
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-      tl.fromTo("[data-hero-item]", { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.85, stagger: 0.08 })
-        .fromTo("[data-preview]", { y: 42, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 0.9 }, "-=0.6");
+      tl.fromTo(
+        "[data-hero-item]",
+        { y: 34, autoAlpha: 0, filter: "blur(8px)" },
+        { y: 0, autoAlpha: 1, filter: "blur(0px)", duration: 0.85, stagger: 0.08 },
+      )
+        .fromTo(
+          "[data-preview]",
+          { y: 42, autoAlpha: 0, scale: 0.965, filter: "blur(8px)" },
+          { y: 0, autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.95 },
+          "-=0.58",
+        )
+        .fromTo("[data-float]", { y: 12, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.48, stagger: 0.08 }, "-=0.35");
 
       gsap.to("[data-float]", {
         y: -14,
@@ -37,7 +65,7 @@ const Hero = () => {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isReady, prefersReducedMotion]);
 
   const handleMouseMove = (event) => {
     if (!spotlightRef.current) return;
@@ -57,8 +85,6 @@ const Hero = () => {
         style={{ "--spotlight-x": "50%", "--spotlight-y": "25%" }}
         className="pointer-events-none absolute inset-0 z-0 opacity-90 [background:radial-gradient(720px_circle_at_var(--spotlight-x)_var(--spotlight-y),rgba(37,99,235,0.13),transparent_46%)]"
       />
-      <div className="absolute -left-24 top-28 h-72 w-72 rounded-full bg-cyan-300/20 blur-3xl" />
-      <div className="absolute right-[-7rem] top-44 h-96 w-96 rounded-full bg-violet-300/20 blur-3xl" />
 
       <Container className="relative z-10 grid items-center gap-12 pb-20 lg:grid-cols-[1.02fr_0.98fr]">
         <div className="space-y-7">

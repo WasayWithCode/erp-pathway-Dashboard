@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import gsap from "gsap";
+import { useAnimationReady } from "../../hooks/useAnimationReady";
 import { dashboardNavLinks } from "../../routes/appRouteConfig";
 import { navLinks } from "../../data/siteData";
 import Container from "../UI/Container";
@@ -24,18 +25,31 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const navRef = useRef(null);
   const drawerRef = useRef(null);
+  const { isReady, prefersReducedMotion } = useAnimationReady();
 
   const publicLinks = useMemo(() => navLinks, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if (!navRef.current) return undefined;
+
+    if (prefersReducedMotion) {
+      gsap.set(navRef.current, { autoAlpha: 1, y: 0, clearProps: "transform" });
+      return undefined;
+    }
+
+    if (!isReady) {
+      gsap.set(navRef.current, { y: -20, autoAlpha: 0 });
+      return undefined;
+    }
+
     const tween = gsap.fromTo(
       navRef.current,
-      { y: -24, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
+      { y: -20, autoAlpha: 0 },
+      { y: 0, autoAlpha: 1, duration: 0.62, ease: "power3.out" },
     );
 
     return () => tween.kill();
-  }, []);
+  }, [isReady, prefersReducedMotion]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 18);

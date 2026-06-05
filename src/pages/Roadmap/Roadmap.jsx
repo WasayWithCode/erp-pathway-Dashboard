@@ -1,10 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Container from "../../components/UI/Container";
 import GlassCard from "../../components/UI/GlassCard";
 import PageHero from "../../components/UI/PageHero";
 import { roadmapLevels } from "../../data/siteData";
+import { useAnimationReady } from "../../hooks/useAnimationReady";
 import { useGsapReveal } from "../../hooks/useGsapReveal";
 import { usePageTitle } from "../../hooks/usePageTitle";
 
@@ -13,11 +14,27 @@ gsap.registerPlugin(ScrollTrigger);
 const Roadmap = () => {
   const pageRef = useRef(null);
   const timelineRef = useRef(null);
+  const { isReady, prefersReducedMotion } = useAnimationReady();
   useGsapReveal(pageRef);
   usePageTitle("ERP Career Roadmap", "Follow a beginner to certification ERP career roadmap with an animated timeline.");
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!timelineRef.current) return undefined;
+
+    const line = timelineRef.current.querySelector("[data-timeline-line]");
+    const items = timelineRef.current.querySelectorAll("[data-timeline-item]");
+
+    if (prefersReducedMotion) {
+      gsap.set(line, { scaleY: 1, clearProps: "transform" });
+      gsap.set(items, { autoAlpha: 1, x: 0, clearProps: "transform" });
+      return undefined;
+    }
+
+    if (!isReady) {
+      gsap.set(line, { scaleY: 0, transformOrigin: "top" });
+      gsap.set(items, { x: -28, autoAlpha: 0 });
+      return undefined;
+    }
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -54,7 +71,7 @@ const Roadmap = () => {
     }, timelineRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isReady, prefersReducedMotion]);
 
   return (
     <div ref={pageRef}>

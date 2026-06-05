@@ -1,14 +1,23 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useAnimationReady } from "../../hooks/useAnimationReady";
 import GlassCard from "./GlassCard";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const StatCounter = ({ value, suffix = "", label, detail = "" }) => {
   const numberRef = useRef(null);
+  const { isReady, prefersReducedMotion } = useAnimationReady();
 
   useEffect(() => {
+    if (!isReady || !numberRef.current) return undefined;
+
+    if (prefersReducedMotion) {
+      numberRef.current.textContent = `${Number(value).toLocaleString()}${suffix}`;
+      return undefined;
+    }
+
     const target = { value: 0 };
     const tween = gsap.to(target, {
       value,
@@ -27,7 +36,7 @@ const StatCounter = ({ value, suffix = "", label, detail = "" }) => {
     });
 
     return () => tween.kill();
-  }, [value, suffix]);
+  }, [isReady, prefersReducedMotion, value, suffix]);
 
   return (
     <GlassCard className="p-5" data-card>

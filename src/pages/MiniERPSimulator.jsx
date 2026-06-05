@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import DashboardLayout from "../layouts/DashboardLayout";
 import {
@@ -11,6 +11,7 @@ import {
   SectionHeader,
   StatCard,
 } from "../components/dashboard";
+import { useAnimationReady } from "../hooks/useAnimationReady";
 import Icon from "../components/UI/Icon";
 import { useGsapReveal } from "../hooks/useGsapReveal";
 
@@ -176,18 +177,31 @@ const MiniERPSimulator = () => {
   const [employeeForm, setEmployeeForm] = useState(initialEmployeeForm);
   const [inventoryForm, setInventoryForm] = useState(initialInventoryForm);
   const [search, setSearch] = useState("");
+  const { isReady, prefersReducedMotion } = useAnimationReady();
 
   useGsapReveal(rootRef);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!rootRef.current) return;
+    const heroItems = rootRef.current.querySelectorAll("[data-hero]");
+
+    if (prefersReducedMotion) {
+      gsap.set(heroItems, { autoAlpha: 1, y: 0, clearProps: "transform" });
+      return undefined;
+    }
+
+    if (!isReady) {
+      gsap.set(heroItems, { y: 18, autoAlpha: 0 });
+      return undefined;
+    }
+
     const tween = gsap.fromTo(
-      rootRef.current.querySelectorAll("[data-hero]"),
-      { y: 18, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: "power3.out" },
+      heroItems,
+      { y: 18, autoAlpha: 0 },
+      { y: 0, autoAlpha: 1, duration: 0.7, stagger: 0.08, ease: "power3.out" },
     );
     return () => tween.kill();
-  }, []);
+  }, [isReady, prefersReducedMotion]);
 
   const summary = useMemo(() => {
     const revenue = invoices.reduce((sum, item) => sum + item.amount, 0);
