@@ -21,7 +21,7 @@ A modern ERP (Enterprise Resource Planning) Dashboard built with React, featurin
 - JavaScript (ES6+)
 - HTML5
 - CSS3
-- Bootstrap / Tailwind CSS
+- Tailwind CSS
 - Axios
 - React Router
 - Node.js (Backend)
