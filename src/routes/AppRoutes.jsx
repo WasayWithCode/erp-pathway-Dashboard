@@ -6,9 +6,15 @@ import { dashboardRoutes, publicRoutes } from "./appRouteConfig";
 const NotFound = () => (
   <section className="grid min-h-[70vh] place-items-center px-4 pt-28 text-center">
     <div>
-      <p className="text-sm font-bold uppercase tracking-wider text-blue-700">404</p>
-      <h1 className="mt-3 text-4xl font-black text-[#0F172A]">Page not found</h1>
-      <p className="mt-3 text-[#64748B]">The ERP Pathway page you requested does not exist.</p>
+      <p className="text-sm font-bold uppercase tracking-wider text-blue-700">
+        404
+      </p>
+      <h1 className="mt-3 text-4xl font-black text-[#0F172A]">
+        Page not found
+      </h1>
+      <p className="mt-3 text-[#64748B]">
+        The ERP Pathway page you requested does not exist.
+      </p>
     </div>
   </section>
 );
@@ -19,7 +25,9 @@ const RouteFallback = () => (
       <div className="mx-auto h-1.5 w-28 overflow-hidden rounded-full bg-slate-100">
         <div className="h-full w-2/3 animate-pulse rounded-full bg-gradient-to-r from-blue-600 via-cyan-500 to-violet-500" />
       </div>
-      <p className="mt-4 text-xs font-semibold uppercase tracking-[0.22em] text-[#64748B]">Loading view</p>
+      <p className="mt-4 text-xs font-semibold uppercase tracking-[0.22em] text-[#64748B]">
+        Loading view
+      </p>
     </div>
   </div>
 );

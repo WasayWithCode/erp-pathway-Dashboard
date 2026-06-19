@@ -1,0 +1,111 @@
+{
+  "dashboard": {
+    "kpis": [
+      { "label": "ERP Progress", "value": 76, "suffix": "%", "detail": "Across your learning roadmap", "trend": "+12% this month", "tone": "cyan" },
+      { "label": "Modules Completed", "value": 18, "suffix": "/25", "detail": "Core and advanced modules", "trend": "5 active", "tone": "emerald" },
+      { "label": "Learning Hours", "value": 124, "suffix": "h", "detail": "Guided lessons and labs", "trend": "+9h weekly", "tone": "amber" },
+      { "label": "Practice Score", "value": 91, "suffix": "%", "detail": "Simulator accuracy", "trend": "+6 points", "tone": "blue" },
+      { "label": "Career Readiness", "value": 84, "suffix": "%", "detail": "Role-fit assessment", "trend": "Analyst-ready", "tone": "violet" },
+      { "label": "Certificates", "value": 6, "detail": "Verified milestones", "trend": "2 in progress", "tone": "rose" }
+    ],
+    "recentActivity": [
+      { "title": "Completed SAP FICO: GL Posting", "time": "12 min ago", "detail": "Scored 94% on document splitting and validation.", "kind": "success" },
+      { "title": "Practiced procurement approvals", "time": "Yesterday", "detail": "Resolved 8 simulated purchase requisitions.", "kind": "practice" },
+      { "title": "Unlocked ERP Fundamentals certificate", "time": "2 days ago", "detail": "Milestone added to your verified achievement vault.", "kind": "award" },
+      { "title": "Career roadmap recalculated", "time": "Jun 14", "detail": "SAP FICO Associate moved into your top role matches.", "kind": "career" }
+    ],
+    "quickActions": [
+      { "label": "Open learning path", "path": "/learning-path" },
+      { "label": "Open ERP simulator", "path": "/erp-simulator" },
+      { "label": "Ask ERP AI", "path": "/ai-assistant" }
+    ]
+  },
+  "employer": {
+    "departments": ["Finance", "IT", "HR", "Sales", "Operations"],
+    "employees": [
+      { "id": "E001", "name": "Ayesha Khan", "dept": "Finance", "role": "Sr. Accountant", "salary": 95000, "status": "Active", "joined": "2023-03-15" },
+      { "id": "E002", "name": "Bilal Ahmed", "dept": "IT", "role": "ERP Analyst", "salary": 110000, "status": "Pending", "joined": "2022-07-01" },
+      { "id": "E003", "name": "Sara Malik", "dept": "HR", "role": "HR Manager", "salary": 85000, "status": "Active", "joined": "2021-11-20" },
+      { "id": "E004", "name": "Usman Tariq", "dept": "Operations", "role": "Implementation Lead", "salary": 125000, "status": "Inactive", "joined": "2020-09-11" }
+    ]
+  },
+  "simulator": {
+    "modules": [
+      { "key": "finance", "label": "Finance", "detail": "Journal entries, invoices, reconciliations", "progress": 88 },
+      { "key": "hr", "label": "HR", "detail": "Hiring, payroll, attendance, performance", "progress": 71 },
+      { "key": "inventory", "label": "Inventory", "detail": "Stock movements, batches, reorder rules", "progress": 79 },
+      { "key": "sales", "label": "Sales", "detail": "Quotes, orders, pricing, fulfillment", "progress": 66 },
+      { "key": "procurement", "label": "Procurement", "detail": "Purchase requests, approvals, vendors", "progress": 73 },
+      { "key": "supply-chain", "label": "Supply Chain", "detail": "Demand planning and logistics execution", "progress": 62 }
+    ],
+    "steps": ["Scenario setup", "Data entry", "Validation", "Posting", "Review"]
+  },
+  "learning": {
+    "modules": [
+      { "name": "SAP", "track": "FICO, MM, SD foundations", "progress": 82, "status": "Unlocked" },
+      { "name": "Oracle ERP", "track": "Procure-to-pay and financials", "progress": 68, "status": "Unlocked" },
+      { "name": "Microsoft Dynamics", "track": "Operations, CRM, and reporting", "progress": 74, "status": "Unlocked" },
+      { "name": "Odoo", "track": "SMB workflows and app studio", "progress": 59, "status": "Locked" },
+      { "name": "ERPNext", "track": "Open-source manufacturing flows", "progress": 63, "status": "Completed" }
+    ],
+    "roadmap": [
+      { "phase": "Foundation", "title": "ERP concepts", "status": "Complete" },
+      { "phase": "Platform", "title": "Core ERP modules", "status": "In progress" },
+      { "phase": "Specialization", "title": "Role-specific labs", "status": "Next" }
+    ]
+  },
+  "certificates": {
+    "items": [
+      { "title": "ERP Fundamentals", "status": "Earned", "progress": 100 },
+      { "title": "Finance Lab Specialist", "status": "In progress", "progress": 78 },
+      { "title": "Process Champion", "status": "Milestone", "progress": 64 },
+      { "title": "Career Ready", "status": "Locked", "progress": 42 }
+    ]
+  },
+  "analytics": {
+    "learningProgress": [
+      { "label": "Core ERP Concepts", "value": 92 },
+      { "label": "Finance Operations", "value": 86 },
+      { "label": "Supply Chain", "value": 74 },
+      { "label": "People Operations", "value": 69 }
+    ],
+    "weeklyActivity": [
+      { "day": "Mon", "hours": 3.4 },
+      { "day": "Tue", "hours": 4.2 },
+      { "day": "Wed", "hours": 2.8 },
+      { "day": "Thu", "hours": 5.1 },
+      { "day": "Fri", "hours": 4.6 },
+      { "day": "Sat", "hours": 2.2 },
+      { "day": "Sun", "hours": 3.1 }
+    ],
+    "skillRadar": [
+      { "skill": "Finance", "value": 88 },
+      { "skill": "Procurement", "value": 78 },
+      { "skill": "Inventory", "value": 82 },
+      { "skill": "HR", "value": 70 },
+      { "skill": "Analytics", "value": 76 },
+      { "skill": "Integration", "value": 64 }
+    ]
+  },
+  "assistant": {
+    "suggestedPrompts": [
+      "Explain SAP FICO month-end close",
+      "Create a procurement practice plan",
+      "What skills do I need for ERP analyst roles?",
+      "Compare Oracle ERP and Dynamics careers"
+    ]
+  },
+  "settings": {
+    "profile": {
+      "name": "Ayesha Khan",
+      "title": "ERP Learner",
+      "goal": "ERP Analyst"
+    },
+    "preferences": {
+      "appearance": true,
+      "notifications": true,
+      "security": true,
+      "productivity": true
+    }
+  }
+}

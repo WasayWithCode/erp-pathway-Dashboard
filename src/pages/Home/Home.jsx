@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import AskErpAISection from "../../components/AI/AskErpAISection";
 import Hero from "../../components/Hero/Hero";
 import ModuleCard from "../../components/Cards/ModuleCard";
 import FaqList from "../../components/FAQ/FaqList";
@@ -36,6 +37,8 @@ const Home = () => {
   return (
     <div ref={pageRef}>
       <Hero />
+
+      <AskErpAISection />
 
       <section className="py-20">
         <Container>

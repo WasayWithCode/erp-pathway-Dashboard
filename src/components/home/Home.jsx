@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
-
+// 
 // ===== DATA (Module-level constants) =====
 const PROBLEM_CARDS = [
   {

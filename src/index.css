@@ -235,6 +235,75 @@
     animation: gradient-shift 9s ease infinite;
   }
 
+  .ai-icon-button {
+    display: grid;
+    height: 2rem;
+    width: 2rem;
+    place-items: center;
+    border-radius: 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.58);
+    background: rgba(255, 255, 255, 0.34);
+    color: #475569;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    transition:
+      background-color 180ms ease,
+      color 180ms ease,
+      transform 180ms ease;
+  }
+
+  .ai-icon-button:hover {
+    background: rgba(255, 255, 255, 0.88);
+    color: #2563eb;
+    transform: translateY(-1px);
+  }
+
+  .ai-input-tool-button {
+    display: grid;
+    height: 3rem;
+    width: 3rem;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.82);
+    color: #64748b;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.72),
+      0 10px 24px rgba(15, 23, 42, 0.06);
+    transition:
+      background-color 180ms ease,
+      color 180ms ease,
+      transform 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .ai-input-tool-button:hover {
+    background: #ffffff;
+    color: #2563eb;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.8),
+      0 14px 30px rgba(37, 99, 235, 0.12);
+    transform: translateY(-1px);
+  }
+
+  .ai-chat-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(148, 163, 184, 0.72) transparent;
+  }
+
+  .ai-chat-scrollbar::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  .ai-chat-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .ai-chat-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.72);
+    border-radius: 999px;
+  }
+
   @keyframes gradient-shift {
     0%,
     100% {

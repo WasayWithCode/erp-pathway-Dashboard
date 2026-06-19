@@ -1,5 +1,13 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { BrowserRouter, useLocation } from "react-router-dom";
+import AIChatbot from "./components/AI/AIChatbot";
+import { ChatProvider } from "./components/AI/ChatContext";
 import AnimationProvider from "./components/AnimationProvider";
 import Footer from "./components/Footer/Footer";
 import Loader from "./components/Loader";
@@ -8,11 +16,13 @@ import ScrollToTop from "./components/UI/ScrollToTop";
 import { useSmoothScroll } from "./hooks/useSmoothScroll";
 import { useScrollRestoration } from "./hooks/useScrollRestoration";
 import AppRoutes from "./routes/AppRoutes";
+import { dashboardRoutes } from "./routes/appRouteConfig";
 
 const MIN_STARTUP_MS = 1450;
 const ASSET_TIMEOUT_MS = 2400;
 
-const wait = (duration) => new Promise((resolve) => window.setTimeout(resolve, duration));
+const wait = (duration) =>
+  new Promise((resolve) => window.setTimeout(resolve, duration));
 
 const nextFrame = () =>
   new Promise((resolve) => {
@@ -20,10 +30,7 @@ const nextFrame = () =>
   });
 
 const withTimeout = (promise, timeout = ASSET_TIMEOUT_MS) =>
-  Promise.race([
-    promise.catch(() => undefined),
-    wait(timeout),
-  ]);
+  Promise.race([promise.catch(() => undefined), wait(timeout)]);
 
 const waitForFonts = () => {
   if (!document.fonts?.ready) return Promise.resolve();
@@ -104,15 +111,17 @@ const AppShell = ({ appReady, onRouteReady }) => {
   useSmoothScroll({ enabled: appReady });
   useScrollRestoration({ enabled: appReady });
 
-  const isDashboardRoute =
-    location.pathname.startsWith("/employer-dashboard") || location.pathname.startsWith("/erp-simulator");
+  const isDashboardRoute = dashboardRoutes.some(
+    (route) => route.path === location.pathname,
+  );
 
   return (
     <div className="app-shell" data-ready={appReady}>
-      <Navbar />
+      {isDashboardRoute ? null : <Navbar />}
       <AppRoutes onRouteReady={onRouteReady} />
       {isDashboardRoute ? null : <Footer />}
       <ScrollToTop />
+      <AIChatbot />
     </div>
   );
 };
@@ -137,10 +146,14 @@ function App() {
 
   return (
     <BrowserRouter>
-      <AnimationProvider ready={appReady}>
-        <AppShell appReady={appReady} onRouteReady={handleRouteReady} />
-        {showLoader ? <Loader ready={appReady} onExitComplete={handleLoaderExit} /> : null}
-      </AnimationProvider>
+      <ChatProvider>
+        <AnimationProvider ready={appReady}>
+          <AppShell appReady={appReady} onRouteReady={handleRouteReady} />
+          {showLoader ? (
+            <Loader ready={appReady} onExitComplete={handleLoaderExit} />
+          ) : null}
+        </AnimationProvider>
+      </ChatProvider>
     </BrowserRouter>
   );
 }

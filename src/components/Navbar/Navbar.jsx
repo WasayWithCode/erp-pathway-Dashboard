@@ -9,13 +9,21 @@ import Button from "../UI/Button";
 import Icon from "../UI/Icon";
 
 const Logo = () => (
-  <Link to="/" className="flex items-center gap-3" aria-label="ERP Pathway home">
+  <Link
+    to="/"
+    className="flex items-center gap-3"
+    aria-label="ERP Pathway home"
+  >
     <span className="grid h-10 w-10 place-items-center rounded-2xl border border-blue-200 bg-blue-50 text-sm font-black text-blue-700 shadow-[0_18px_40px_rgba(37,99,235,0.12)]">
       EP
     </span>
     <span className="leading-tight">
-      <span className="block text-sm font-semibold tracking-tight text-[#0F172A]">ERP Pathway</span>
-      <span className="block text-[11px] font-medium text-slate-500">Modern ERP learning and practice</span>
+      <span className="block text-sm font-semibold tracking-tight text-[#0F172A]">
+        ERP Pathway
+      </span>
+      <span className="block text-[11px] font-medium text-slate-500">
+        Modern ERP learning and practice
+      </span>
     </span>
   </Link>
 );
@@ -71,7 +79,14 @@ const Navbar = () => {
       gsap.fromTo(
         drawerRef.current.querySelectorAll("[data-mobile-link]"),
         { x: 18, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.28, stagger: 0.05, delay: 0.08, ease: "power2.out" },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.28,
+          stagger: 0.05,
+          delay: 0.08,
+          ease: "power2.out",
+        },
       );
     }
 
@@ -99,7 +114,7 @@ const Navbar = () => {
   return (
     <header
       ref={navRef}
-      className="fixed inset-x-0 top-0 z-50 px-3 pt-3 transition duration-300 sm:px-6"
+      className="sticky inset-x-0 top-0 z-[70] px-3 pt-3 transition duration-300 sm:px-6"
     >
       <Container
         className={`flex h-16 items-center justify-between gap-4 rounded-[1.35rem] border border-white/80 bg-white/78 px-4 shadow-[0_18px_60px_rgba(15,23,42,0.08)] backdrop-blur-2xl transition duration-300 ${
@@ -108,7 +123,10 @@ const Navbar = () => {
       >
         <Logo />
 
-        <nav className="hidden items-center gap-1 xl:flex" aria-label="Primary navigation">
+        <nav
+          className="hidden items-center gap-1 xl:flex"
+          aria-label="Primary navigation"
+        >
           {publicLinks.map((link) => (
             <NavLink key={link.path} to={link.path} className={navItemClass}>
               {link.label}
@@ -118,7 +136,12 @@ const Navbar = () => {
 
         <div className="hidden items-center gap-2 lg:flex">
           {dashboardNavLinks.map((link) => (
-            <Button key={link.path} to={link.path} variant="secondary" className="px-3 py-2 text-xs">
+            <Button
+              key={link.path}
+              to={link.path}
+              variant="secondary"
+              className="px-3 py-2 text-xs"
+            >
               {link.label}
             </Button>
           ))}
@@ -163,7 +186,9 @@ const Navbar = () => {
 
             <div className="mt-8 space-y-4">
               <div>
-                <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Explore</p>
+                <p className="text-xs uppercase tracking-[0.24em] text-slate-500">
+                  Explore
+                </p>
                 <nav className="mt-3 grid gap-2">
                   {publicLinks.map((link) => (
                     <NavLink
@@ -186,7 +211,9 @@ const Navbar = () => {
               </div>
 
               <div>
-                <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Dashboards</p>
+                <p className="text-xs uppercase tracking-[0.24em] text-slate-500">
+                  Dashboards
+                </p>
                 <div className="mt-3 grid gap-2">
                   {dashboardNavLinks.map((link) => (
                     <Button
@@ -205,11 +232,18 @@ const Navbar = () => {
             </div>
 
             <div className="mt-8 rounded-3xl border border-cyan-200 bg-cyan-50 p-4">
-              <p className="text-sm font-semibold text-[#0F172A]">Ready to practice?</p>
-              <p className="mt-2 text-sm leading-6 text-[#64748B]">
-                Use the ERP simulator to test invoice, employee, and inventory workflows in a clean sandbox.
+              <p className="text-sm font-semibold text-[#0F172A]">
+                Ready to practice?
               </p>
-              <Button to="/erp-simulator" className="mt-4 w-full" onClick={() => setOpen(false)}>
+              <p className="mt-2 text-sm leading-6 text-[#64748B]">
+                Use the ERP simulator to test invoice, employee, and inventory
+                workflows in a clean sandbox.
+              </p>
+              <Button
+                to="/erp-simulator"
+                className="mt-4 w-full"
+                onClick={() => setOpen(false)}
+              >
                 Open simulator
               </Button>
             </div>
